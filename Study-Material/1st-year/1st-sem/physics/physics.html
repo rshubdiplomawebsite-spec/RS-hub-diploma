@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Physics | RS Hub Diploma</title>
+
+<style>
+
+body{
+    margin:0;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: linear-gradient(to right, #eef2ff, #f8f9ff);
+}
+
+/* Header */
+header{
+    background:#6a1b9a;
+    color:white;
+    padding:20px;
+    text-align:center;
+    box-shadow:0 3px 10px rgba(0,0,0,0.2);
+}
+
+header h1{
+    margin:0;
+}
+
+header p{
+    margin:5px 0 0;
+    font-size:14px;
+}
+
+/* Container */
+.container{
+    padding:30px 20px;
+    max-width:1000px;
+    margin:auto;
+}
+
+/* Grid */
+.grid{
+    display:grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap:20px;
+}
+
+/* Card */
+.card{
+    background:white;
+    border-radius:12px;
+    padding:25px;
+    text-align:center;
+    box-shadow:0 5px 15px rgba(0,0,0,0.1);
+    transition:0.3s;
+}
+
+.card:hover{
+    transform: translateY(-5px);
+    box-shadow:0 8px 20px rgba(0,0,0,0.15);
+}
+
+/* Icon */
+.card .icon{
+    font-size:40px;
+    margin-bottom:10px;
+}
+
+/* Title */
+.card h2{
+    margin:10px 0;
+    font-size:18px;
+}
+
+/* Button */
+.card a{
+    display:inline-block;
+    margin-top:10px;
+    padding:10px 20px;
+    background:#6a1b9a;
+    color:white;
+    text-decoration:none;
+    border-radius:6px;
+    font-size:14px;
+}
+
+.card a:hover{
+    background:#8e24aa;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header>
+    <h1>JUT Diploma 1st sem Engineering Physics | RS Hub Diploma</h1>
+    <p>Study Materials for Diploma Students</p>
+</header>
+
+<div class="container">
+
+    <div class="grid">
+
+        <!-- Videos -->
+        <div class="card">
+            <div class="icon">🎥</div>
+            <h2>Video Lectures</h2>
+            <p>Watch important Physics video lectures.</p>
+            <a href="physics-video.html">Open</a>
+        </div>
+
+        <!-- Questions -->
+        <div class="card">
+            <div class="icon">📝</div>
+            <h2>Important Questions</h2>
+            <p>Exam oriented questions for preparation.</p>
+            <a href="physics-questions.html">Open</a>
+        </div>
+
+        <!-- PYQ -->
+        <div class="card">
+            <div class="icon">📄</div>
+            <h2>Previous Year Questions</h2>
+            <p>Download PYQ papers easily.</p>
+            <a href="physicspyq.html">Open</a>
+        </div>
+
+        <!-- Notes -->
+        <div class="card">
+            <div class="icon">📘</div>
+            <h2>Physics Notes</h2>
+            <p>All units notes in one place.</p>
+            <a href="physicsnotes.html">Open</a>
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>
