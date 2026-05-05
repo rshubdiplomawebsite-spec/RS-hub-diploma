@@ -7,21 +7,21 @@
 
 <title>2nd Semester Study Material</title>
 
-<link rel="stylesheet" href="css/style.css">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
 
 <style>
 
 /* GENERAL */
 body{
     margin:0;
-    font-family: Arial, sans-serif;
-    background:#f4f6f9;
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg,#eef2f7,#dfe9f3);
 }
 
 /* CONTAINER */
 .container{
-    padding:20px;
-    max-width:900px;
+    padding:25px;
+    max-width:950px;
     margin:auto;
 }
 
@@ -29,15 +29,22 @@ body{
 h1{
     text-align:center;
     color:#ff6b2b;
+    font-weight:600;
+    margin-bottom:25px;
 }
 
 /* SECTION */
 .section{
     margin-bottom:30px;
+    background: rgba(255,255,255,0.6);
+    backdrop-filter: blur(10px);
+    padding:20px;
+    border-radius:15px;
+    box-shadow:0 4px 15px rgba(0,0,0,0.08);
 }
 
 .section h2{
-    margin-bottom:10px;
+    margin-bottom:15px;
     color:#ff6b2b;
 }
 
@@ -47,46 +54,70 @@ h1{
     background:white;
     padding:14px;
     margin:10px 0;
-    border-radius:10px;
+    border-radius:12px;
     text-decoration:none;
     color:#333;
     font-weight:500;
-    box-shadow:0 2px 8px rgba(0,0,0,0.1);
+    box-shadow:0 4px 10px rgba(0,0,0,0.08);
+    transition:0.3s;
+    position:relative;
+    overflow:hidden;
+}
+
+.links a::after{
+    content:'';
+    position:absolute;
+    width:0%;
+    height:100%;
+    left:0;
+    top:0;
+    background:#ff6b2b;
+    z-index:0;
     transition:0.3s;
 }
 
+.links a:hover::after{
+    width:100%;
+}
+
+.links a span{
+    position:relative;
+    z-index:1;
+}
+
 .links a:hover{
-    background:#ff6b2b;
     color:white;
-    transform:scale(1.03);
+    transform:translateY(-3px);
 }
 
 /* WHATSAPP BUTTON */
 .whatsapp-btn{
     display:block;
     text-align:center;
-    background:#25D366;
+    background:linear-gradient(45deg,#25D366,#1ebe5d);
     color:white;
-    padding:14px;
-    border-radius:10px;
+    padding:15px;
+    border-radius:12px;
     text-decoration:none;
-    font-weight:bold;
+    font-weight:600;
     margin-bottom:20px;
+    box-shadow:0 4px 12px rgba(0,0,0,0.1);
     transition:0.3s;
 }
 
 .whatsapp-btn:hover{
-    background:#1ebe5d;
+    transform:scale(1.05);
 }
 
 /* COMING SOON */
 .coming-soon{
     background:white;
-    padding:15px;
-    border-radius:10px;
+    padding:18px;
+    border-radius:12px;
     text-align:center;
-    box-shadow:0 2px 6px rgba(0,0,0,0.1);
+    box-shadow:0 3px 10px rgba(0,0,0,0.08);
     color:#555;
+    line-height:1.6;
 }
 
 </style>
@@ -117,7 +148,7 @@ h1{
 
 <div class="links">
 
-<a href="syllabus/syllabus.html">📖 All Branch Syllabus</a>
+<a href="syllabus/syllabus.html"><span>📖 All Branch Syllabus</span></a>
 
 </div>
 
@@ -139,9 +170,9 @@ All branch ka syllabus respective branch ke andar available rahega. <br><br>
 
 <div class="links">
 
-<a href="FEEE/FEEE.html">📘 Fundamental of electrical & electronics engineering</a>
-<a href="PMS/PMS.html">📘 Project Management Skill</a>
-<a href="S&A/S&A.html">📘 Statistic and Analytics</a>
+<a href="FEEE/FEEE.html"><span>📘 Fundamental of electrical & electronics engineering</span></a>
+<a href="PMS/PMS.html"><span>📘 Project Management Skill</span></a>
+<a href="S&A/S&A.html"><span>📘 Statistic and Analytics</span></a>
 
 </div>
 
@@ -155,14 +186,14 @@ All branch ka syllabus respective branch ke andar available rahega. <br><br>
 
 <div class="links">
 
-<a href="EE/electrical.html">⚡ Electrical (EE / EEE)</a>
-<a href="ECE/ece.html">📡 Electronics (ECE)</a>
-<a href="ME/mechanical.html">⚙ Mechanical Engineering</a>
-<a href="CE/civil.html">🏗 Civil Engineering</a>
-<a href="CS/computer.html">💻 Computer Science</a>
-<a href="mining/mining.html">⛏ Mining Engineering</a>
-<a href="auto/automobile.html">🚗 Automobile Engineering</a>
-<a href="metallurgical/metallurgical.html">🔥 Metallurgical Engineering</a>
+<a href="EE/electrical.html"><span>⚡ Electrical (EE / EEE)</span></a>
+<a href="ECE/ece.html"><span>📡 Electronics (ECE)</span></a>
+<a href="ME/mechanical.html"><span>⚙ Mechanical Engineering</span></a>
+<a href="CE/civil.html"><span>🏗 Civil Engineering</span></a>
+<a href="CS/computer.html"><span>💻 Computer Science</span></a>
+<a href="mining/mining.html"><span>⛏ Mining Engineering</span></a>
+<a href="auto/automobile.html"><span>🚗 Automobile Engineering</span></a>
+<a href="metallurgical/metallurgical.html"><span>🔥 Metallurgical Engineering</span></a>
 
 </div>
 
