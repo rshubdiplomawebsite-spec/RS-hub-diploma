@@ -988,9 +988,22 @@ const firebaseConfig = {
   measurementId: "G-P1TS2C29ND"
 };
 
-firebase.initializeApp(firebaseConfig);
-const auth = firebase.auth();
-const db   = firebase.firestore();
+import (
+  "fmt"
+  "context"
+
+  firebase "firebase.google.com/go"
+  "firebase.google.com/go/auth"
+
+  "google.golang.org/api/option"
+)
+
+opt := option.WithCredentialsFile("path/to/serviceAccountKey.json")
+app, err := firebase.NewApp(context.Background(), nil, opt)
+if err != nil {
+  return nil, fmt.Errorf("error initializing app: %v", err)
+}
+
 
 // ── 2. AUTH STATE LISTENER ─────────────────────────
 auth.onAuthStateChanged(user => {
