@@ -1,72 +1,445 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>YouTube - RS Hub Diploma</title>
 
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            background: #f4f6f9;
-            text-align: center;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        header {
-            background: red;
-            color: white;
-            padding: 15px;
-        }
+<title>YouTube | RS Hub Diploma</title>
 
-        .container {
-            margin-top: 50px;
-        }
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
 
-        a {
-            display: inline-block;
-            padding: 12px 20px;
-            background: red;
-            color: white;
-            text-decoration: none;
-            border-radius: 5px;
-            font-weight: bold;
-        }
+<style>
 
-        a:hover {
-            background: darkred;
-        }
+:root{
+    --red:#ff0033;
+    --red-dark:#d90429;
+    --purple:#7c3aed;
+    --gold:#f59e0b;
+    --dark:#0a0a1a;
+    --darker:#050510;
+    --white:#ffffff;
+    --gray:#a0aec0;
+    --card-bg:rgba(255,255,255,0.04);
+    --border:rgba(255,255,255,0.08);
+}
 
-        footer {
-            background: #222;
-            color: white;
-            padding: 10px;
-            margin-top: 50px;
-        }
-    </style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    font-family:'DM Sans',sans-serif;
+    background:var(--darker);
+    color:white;
+    overflow-x:hidden;
+}
+
+/* BACKGROUND EFFECT */
+
+body::before{
+    content:'';
+    position:fixed;
+    inset:0;
+    background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+    pointer-events:none;
+    z-index:9999;
+    opacity:0.4;
+}
+
+/* NAVBAR */
+
+.nav{
+    position:fixed;
+    top:0;
+    left:0;
+    right:0;
+    height:64px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 24px;
+    background:rgba(5,5,16,0.85);
+    backdrop-filter:blur(18px);
+    border-bottom:1px solid var(--border);
+    z-index:1000;
+}
+
+.nav-logo{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    text-decoration:none;
+}
+
+.nav-logo img{
+    width:38px;
+    height:38px;
+    border-radius:50%;
+    border:2px solid var(--gold);
+}
+
+.nav-logo span{
+    font-family:'Syne',sans-serif;
+    font-weight:800;
+    font-size:17px;
+    color:white;
+}
+
+.back-btn{
+    text-decoration:none;
+    color:white;
+    background:rgba(255,255,255,0.07);
+    border:1px solid rgba(255,255,255,0.12);
+    padding:10px 18px;
+    border-radius:10px;
+    font-size:14px;
+    font-weight:600;
+    transition:0.3s;
+}
+
+.back-btn:hover{
+    background:rgba(255,0,51,0.2);
+    border-color:rgba(255,0,51,0.4);
+    transform:translateY(-2px);
+}
+
+/* HERO */
+
+.hero{
+    padding:140px 20px 80px;
+    position:relative;
+    overflow:hidden;
+}
+
+.blob{
+    position:absolute;
+    border-radius:50%;
+    filter:blur(90px);
+    opacity:0.25;
+}
+
+.blob1{
+    width:400px;
+    height:400px;
+    background:var(--red);
+    top:-120px;
+    left:-120px;
+}
+
+.blob2{
+    width:350px;
+    height:350px;
+    background:var(--purple);
+    right:-100px;
+    top:60px;
+}
+
+.hero-content{
+    position:relative;
+    z-index:1;
+    max-width:900px;
+    margin:auto;
+    text-align:center;
+}
+
+.badge{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    background:rgba(255,0,51,0.12);
+    border:1px solid rgba(255,0,51,0.3);
+    color:#ff4d6d;
+    padding:7px 16px;
+    border-radius:30px;
+    font-size:13px;
+    font-weight:700;
+    margin-bottom:24px;
+}
+
+.hero h1{
+    font-family:'Syne',sans-serif;
+    font-size:clamp(38px,5vw,62px);
+    font-weight:800;
+    line-height:1.1;
+    margin-bottom:20px;
+    letter-spacing:-1.5px;
+}
+
+.hero h1 span{
+    background:linear-gradient(135deg,var(--red),var(--purple));
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+}
+
+.hero p{
+    color:var(--gray);
+    font-size:18px;
+    line-height:1.8;
+    max-width:720px;
+    margin:auto;
+}
+
+/* CONTAINER */
+
+.container{
+    max-width:1000px;
+    margin:auto;
+    padding:20px;
+}
+
+/* CHANNEL CARD */
+
+.channel-card{
+    background:var(--card-bg);
+    border:1px solid var(--border);
+    border-radius:30px;
+    padding:50px 30px;
+    text-align:center;
+    backdrop-filter:blur(12px);
+    box-shadow:0 20px 50px rgba(0,0,0,0.35);
+}
+
+.channel-icon{
+    width:110px;
+    height:110px;
+    margin:auto;
+    margin-bottom:24px;
+    border-radius:50%;
+    background:linear-gradient(135deg,var(--red),var(--red-dark));
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:50px;
+    box-shadow:0 20px 50px rgba(255,0,51,0.35);
+}
+
+.channel-card h2{
+    font-family:'Syne',sans-serif;
+    font-size:38px;
+    margin-bottom:14px;
+}
+
+.channel-card p{
+    color:var(--gray);
+    line-height:1.9;
+    max-width:700px;
+    margin:auto;
+    font-size:17px;
+}
+
+/* BUTTON */
+
+.youtube-btn{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:12px;
+    margin-top:32px;
+    background:linear-gradient(135deg,var(--red),var(--red-dark));
+    color:white;
+    text-decoration:none;
+    padding:18px 34px;
+    border-radius:18px;
+    font-size:18px;
+    font-weight:700;
+    transition:0.35s;
+    box-shadow:0 15px 40px rgba(255,0,51,0.3);
+}
+
+.youtube-btn:hover{
+    transform:translateY(-5px) scale(1.03);
+    box-shadow:0 20px 50px rgba(255,0,51,0.4);
+}
+
+/* FEATURES */
+
+.features{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:20px;
+    margin-top:40px;
+}
+
+.feature-box{
+    background:rgba(255,255,255,0.04);
+    border:1px solid var(--border);
+    border-radius:20px;
+    padding:24px;
+    text-align:center;
+    transition:0.3s;
+}
+
+.feature-box:hover{
+    transform:translateY(-5px);
+    background:rgba(255,255,255,0.07);
+}
+
+.feature-box h3{
+    margin-top:12px;
+    margin-bottom:10px;
+    font-size:20px;
+}
+
+.feature-box p{
+    color:var(--gray);
+    font-size:15px;
+    line-height:1.7;
+}
+
+/* FOOTER */
+
+footer{
+    margin-top:70px;
+    padding:30px 20px;
+    border-top:1px solid var(--border);
+    text-align:center;
+    color:var(--gray);
+    font-size:14px;
+}
+
+footer span{
+    background:linear-gradient(135deg,var(--red),var(--purple));
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+    font-weight:700;
+}
+
+/* MOBILE */
+
+@media(max-width:768px){
+
+    .nav{
+        padding:0 16px;
+    }
+
+    .nav-logo span{
+        font-size:15px;
+    }
+
+    .hero{
+        padding-top:120px;
+    }
+
+    .channel-card{
+        padding:35px 20px;
+    }
+
+    .channel-card h2{
+        font-size:30px;
+    }
+
+    .youtube-btn{
+        width:100%;
+    }
+
+}
+
+</style>
+
 </head>
 
 <body>
 
-<header>
-    <h1>Our YouTube Channel</h1>
-</header>
+<!-- NAVBAR -->
 
-<div class="container">
+<nav class="nav">
 
-    <h2>🎥 RS Hub Diploma</h2>
+<a href="/index.html" class="nav-logo">
+<img src="https://i.ibb.co/mrDvHHXY/logo.jpg" alt="Logo">
+<span>RS Hub Diploma</span>
+</a>
 
-    <!-- Correct Link -->
-    <a href="https://www.youtube.com/@Rshubdiploma" target="_blank">
-        Visit Our YouTube Channel
-    </a>
+<a href="/index.html" class="back-btn">← Back Home</a>
 
-    <p>Subscribe for exam updates, VVI questions & guidance 🚀</p>
+</nav>
+
+<!-- HERO -->
+
+<section class="hero">
+
+<div class="blob blob1"></div>
+<div class="blob blob2"></div>
+
+<div class="hero-content">
+
+<div class="badge">🎥 Official Educational Channel</div>
+
+<h1>
+Our <br>
+<span>YouTube Channel</span>
+</h1>
+
+<p>
+Subscribe to RS Hub Diploma for exam updates, important questions,
+notes, semester guidance, career support and preparation strategy videos.
+</p>
 
 </div>
 
+</section>
+
+<!-- MAIN -->
+
+<div class="container">
+
+<div class="channel-card">
+
+<div class="channel-icon">
+▶
+</div>
+
+<h2>RS Hub Diploma</h2>
+
+<p>
+Get high-quality diploma educational content in simple Hinglish language.
+We regularly upload exam updates, VVI questions, semester guidance,
+career tips and preparation strategy videos for JUT Diploma students.
+</p>
+
+<a href="https://www.youtube.com/@Rshubdiploma" target="_blank" class="youtube-btn">
+🚀 Visit Our YouTube Channel
+</a>
+
+<div class="features">
+
+<div class="feature-box">
+<h3>📚 Notes & PYQ</h3>
+<p>
+Important questions, handwritten notes and previous year paper discussions.
+</p>
+</div>
+
+<div class="feature-box">
+<h3>🎯 Exam Strategy</h3>
+<p>
+Last-minute preparation tips and scoring strategy for diploma students.
+</p>
+</div>
+
+<div class="feature-box">
+<h3>🚀 Career Guidance</h3>
+<p>
+Career related videos, guidance and motivation for students.
+</p>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- FOOTER -->
+
 <footer>
-    <p>© 2026 RS Hub Diploma</p>
+© 2026 <span>RS Hub Diploma</span> · Made with ❤️ for JUT Diploma Students
 </footer>
 
 </body>
