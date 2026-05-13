@@ -7,57 +7,292 @@
 
 <title>3rd Semester | RS Hub Diploma</title>
 
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
+
 <style>
 
+:root{
+    --blue:#1a56ff;
+    --purple:#7c3aed;
+    --gold:#f59e0b;
+    --dark:#0a0a1a;
+    --darker:#050510;
+    --white:#ffffff;
+    --gray:#a0aec0;
+    --card-bg:rgba(255,255,255,0.04);
+    --border:rgba(255,255,255,0.08);
+}
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
 body{
-    margin:0;
-    font-family:'Segoe UI', Arial;
-    background: linear-gradient(to right, #eef2ff, #f8fbff);
-}
-
-/* Header */
-header{
-    background:#283593;
+    font-family:'DM Sans',sans-serif;
+    background:var(--darker);
     color:white;
-    padding:20px;
-    text-align:center;
-    box-shadow:0 3px 10px rgba(0,0,0,0.2);
+    overflow-x:hidden;
 }
 
-header h1{
-    margin:0;
+/* Background Effect */
+
+body::before{
+    content:'';
+    position:fixed;
+    inset:0;
+    background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+    pointer-events:none;
+    z-index:9999;
+    opacity:0.4;
 }
 
-/* Container */
-.container{
-    max-width:800px;
-    margin:auto;
-    padding:50px 20px;
+/* Navbar */
+
+.nav{
+    position:fixed;
+    top:0;
+    left:0;
+    right:0;
+    height:64px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 24px;
+    background:rgba(5,5,16,0.85);
+    backdrop-filter:blur(18px);
+    border-bottom:1px solid var(--border);
+    z-index:1000;
 }
 
-/* Box */
-.box{
-    background:white;
-    padding:40px;
-    text-align:center;
-    border-radius:12px;
-    box-shadow:0 5px 15px rgba(0,0,0,0.1);
-    font-size:18px;
-}
-
-/* Back Button */
-.back{
-    display:inline-block;
-    margin-bottom:20px;
-    background:#444;
-    color:white;
-    padding:8px 15px;
-    border-radius:5px;
+.nav-logo{
+    display:flex;
+    align-items:center;
+    gap:12px;
     text-decoration:none;
 }
 
-.back:hover{
-    background:#222;
+.nav-logo img{
+    width:38px;
+    height:38px;
+    border-radius:50%;
+    border:2px solid var(--gold);
+}
+
+.nav-logo span{
+    font-family:'Syne',sans-serif;
+    font-weight:800;
+    font-size:17px;
+    color:white;
+}
+
+.back-btn{
+    text-decoration:none;
+    color:white;
+    background:rgba(255,255,255,0.07);
+    border:1px solid rgba(255,255,255,0.12);
+    padding:10px 18px;
+    border-radius:10px;
+    font-size:14px;
+    font-weight:600;
+    transition:0.3s;
+}
+
+.back-btn:hover{
+    background:rgba(26,86,255,0.2);
+    border-color:rgba(26,86,255,0.4);
+    transform:translateY(-2px);
+}
+
+/* Hero Section */
+
+.hero{
+    padding:140px 20px 80px;
+    position:relative;
+    overflow:hidden;
+}
+
+.blob{
+    position:absolute;
+    border-radius:50%;
+    filter:blur(90px);
+    opacity:0.25;
+}
+
+.blob1{
+    width:400px;
+    height:400px;
+    background:var(--blue);
+    top:-120px;
+    left:-120px;
+}
+
+.blob2{
+    width:350px;
+    height:350px;
+    background:var(--purple);
+    right:-100px;
+    top:50px;
+}
+
+.hero-content{
+    position:relative;
+    z-index:1;
+    max-width:850px;
+    margin:auto;
+    text-align:center;
+}
+
+.badge{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    background:rgba(245,158,11,0.12);
+    border:1px solid rgba(245,158,11,0.3);
+    color:var(--gold);
+    padding:7px 16px;
+    border-radius:30px;
+    font-size:13px;
+    font-weight:700;
+    margin-bottom:24px;
+}
+
+.hero h1{
+    font-family:'Syne',sans-serif;
+    font-size:clamp(38px,6vw,65px);
+    font-weight:800;
+    line-height:1.1;
+    margin-bottom:20px;
+    letter-spacing:-1.5px;
+}
+
+.hero h1 span{
+    background:linear-gradient(135deg,var(--blue),var(--purple));
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+}
+
+.hero p{
+    color:var(--gray);
+    font-size:18px;
+    line-height:1.8;
+    max-width:700px;
+    margin:auto;
+}
+
+/* Container */
+
+.container{
+    max-width:1000px;
+    margin:auto;
+    padding:20px;
+}
+
+/* Main Box */
+
+.box{
+    background:var(--card-bg);
+    border:1px solid var(--border);
+    border-radius:24px;
+    padding:60px 30px;
+    text-align:center;
+    backdrop-filter:blur(12px);
+    position:relative;
+    overflow:hidden;
+    transition:0.4s;
+}
+
+.box::before{
+    content:'';
+    position:absolute;
+    top:0;
+    left:0;
+    width:100%;
+    height:4px;
+    background:linear-gradient(90deg,var(--blue),var(--purple));
+}
+
+.box:hover{
+    transform:translateY(-6px);
+    box-shadow:0 20px 60px rgba(0,0,0,0.35);
+}
+
+.box-icon{
+    font-size:70px;
+    margin-bottom:20px;
+}
+
+.box h2{
+    font-family:'Syne',sans-serif;
+    font-size:36px;
+    margin-bottom:15px;
+}
+
+.box h2 span{
+    background:linear-gradient(135deg,var(--blue),var(--purple));
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+}
+
+.box p{
+    color:var(--gray);
+    font-size:18px;
+    line-height:1.8;
+    max-width:650px;
+    margin:auto;
+}
+
+/* Footer */
+
+footer{
+    margin-top:80px;
+    padding:30px 20px;
+    border-top:1px solid var(--border);
+    text-align:center;
+    color:var(--gray);
+    font-size:14px;
+}
+
+footer span{
+    background:linear-gradient(135deg,var(--blue),var(--purple));
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+    font-weight:700;
+}
+
+/* Responsive */
+
+@media(max-width:768px){
+
+    .nav{
+        padding:0 16px;
+    }
+
+    .nav-logo span{
+        font-size:15px;
+    }
+
+    .hero{
+        padding-top:120px;
+    }
+
+    .box{
+        padding:45px 20px;
+    }
+
+    .box h2{
+        font-size:28px;
+    }
+
+    .box p{
+        font-size:16px;
+    }
+
 }
 
 </style>
@@ -66,19 +301,70 @@ header h1{
 
 <body>
 
-<header>
-    <h1>📚 3rd Semester</h1>
-</header>
+<!-- Navbar -->
+
+<nav class="nav">
+
+<a href="index.html" class="nav-logo">
+<img src="https://i.ibb.co/mrDvHHXY/logo.jpg" alt="Logo">
+<span>RS Hub Diploma</span>
+</a>
+
+<a href="index.html" class="back-btn">← Back</a>
+
+</nav>
+
+<!-- Hero -->
+
+<section class="hero">
+
+<div class="blob blob1"></div>
+<div class="blob blob2"></div>
+
+<div class="hero-content">
+
+<div class="badge">📚 JUT Diploma Resources</div>
+
+<h1>
+JUT Diploma 3rd Semester <br>
+<span>Study Material</span>
+</h1>
+
+<p>
+Premium study resources, notes, PYQs and branch-wise materials
+for JUT Diploma students will be available here soon.
+</p>
+
+</div>
+
+</section>
+
+<!-- Main -->
 
 <div class="container">
 
-    <a href="index.html" class="back">⬅ Back</a>
+<div class="box">
 
-    <div class="box">
-        📘 All Study Material Coming Soon...
-    </div>
+<div class="box-icon">🚀</div>
+
+<h2><span>Coming Soon</span></h2>
+
+<p>
+All study materials, handwritten notes, important questions,
+PDFs and video lectures for 3rd Semester are currently being prepared.
+<br><br>
+Stay connected with <strong>RS Hub Diploma</strong> 🔥
+</p>
 
 </div>
+
+</div>
+
+<!-- Footer -->
+
+<footer>
+© 2026 <span>RS Hub Diploma</span> · Made with ❤️ for JUT Diploma Students
+</footer>
 
 </body>
 </html>
