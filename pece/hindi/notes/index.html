@@ -1,63 +1,235 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>PECE Notes - Coming Soon</title>
+
+<title>PECE Notes | RS Hub Diploma</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
 
 <style>
-body {
-    margin: 0;
-    font-family: 'Segoe UI', sans-serif;
-    background: linear-gradient(135deg, #0d6efd, #6610f2);
-    color: white;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    text-align: center;
+
+:root{
+    --blue:#1a56ff;
+    --purple:#7c3aed;
+    --gold:#f59e0b;
+    --dark:#0a0a1a;
+    --darker:#050510;
+    --white:#ffffff;
+    --gray:#a0aec0;
+    --card-bg:rgba(255,255,255,0.04);
+    --border:rgba(255,255,255,0.08);
 }
 
-.container {
-    max-width: 500px;
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
 }
 
-h1 {
-    font-size: 36px;
-    margin-bottom: 10px;
+body{
+    font-family:'DM Sans',sans-serif;
+    background:var(--darker);
+    color:white;
+    overflow:hidden;
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    position:relative;
+    padding:20px;
 }
 
-p {
-    font-size: 18px;
-    margin-bottom: 20px;
+/* BACKGROUND EFFECT */
+
+body::before{
+    content:'';
+    position:fixed;
+    inset:0;
+    background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+    pointer-events:none;
+    z-index:9999;
+    opacity:0.4;
 }
 
-.btn {
-    display: inline-block;
-    padding: 12px 25px;
-    background: white;
-    color: #0d6efd;
-    text-decoration: none;
-    border-radius: 25px;
-    font-weight: bold;
-    transition: 0.3s;
+/* BLOBS */
+
+.blob{
+    position:absolute;
+    border-radius:50%;
+    filter:blur(100px);
+    opacity:0.25;
 }
 
-.btn:hover {
-    background: #ffd700;
-    color: black;
+.blob1{
+    width:420px;
+    height:420px;
+    background:var(--blue);
+    top:-150px;
+    left:-150px;
 }
+
+.blob2{
+    width:350px;
+    height:350px;
+    background:var(--purple);
+    bottom:-100px;
+    right:-100px;
+}
+
+/* CARD */
+
+.container{
+    position:relative;
+    z-index:2;
+    width:100%;
+    max-width:650px;
+    background:var(--card-bg);
+    border:1px solid var(--border);
+    border-radius:32px;
+    backdrop-filter:blur(16px);
+    padding:55px 35px;
+    text-align:center;
+    box-shadow:0 20px 60px rgba(0,0,0,0.35);
+}
+
+/* BADGE */
+
+.badge{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    background:rgba(245,158,11,0.12);
+    border:1px solid rgba(245,158,11,0.3);
+    color:var(--gold);
+    padding:7px 16px;
+    border-radius:30px;
+    font-size:13px;
+    font-weight:700;
+    margin-bottom:24px;
+}
+
+/* TITLE */
+
+h1{
+    font-family:'Syne',sans-serif;
+    font-size:clamp(42px,6vw,70px);
+    line-height:1.1;
+    margin-bottom:18px;
+    font-weight:800;
+    letter-spacing:-2px;
+}
+
+h1 span{
+    background:linear-gradient(135deg,var(--blue),var(--purple));
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+}
+
+p{
+    color:var(--gray);
+    font-size:18px;
+    line-height:1.8;
+    margin-bottom:16px;
+}
+
+/* STATUS BOX */
+
+.status{
+    margin:30px auto;
+    background:linear-gradient(135deg,rgba(26,86,255,0.15),rgba(124,58,237,0.15));
+    border:1px solid rgba(255,255,255,0.08);
+    border-radius:20px;
+    padding:22px;
+    font-size:20px;
+    font-weight:700;
+    line-height:1.8;
+}
+
+/* BUTTON */
+
+.btn{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:12px;
+    margin-top:25px;
+    background:linear-gradient(135deg,var(--blue),var(--purple));
+    color:white;
+    text-decoration:none;
+    padding:16px 30px;
+    border-radius:16px;
+    font-size:17px;
+    font-weight:700;
+    transition:0.35s;
+    box-shadow:0 12px 40px rgba(26,86,255,0.25);
+}
+
+.btn:hover{
+    transform:translateY(-5px);
+    box-shadow:0 20px 50px rgba(26,86,255,0.35);
+}
+
+/* MOBILE */
+
+@media(max-width:768px){
+
+    .container{
+        padding:40px 22px;
+    }
+
+    p{
+        font-size:16px;
+    }
+
+    .status{
+        font-size:18px;
+        padding:18px;
+    }
+
+    .btn{
+        width:100%;
+    }
+
+}
+
 </style>
+
 </head>
 
 <body>
 
-<div class="container">
-    <h1>📚 PECE Notes</h1>
-    <p>🚧 Notes अभी तैयार हो रहे हैं</p>
-<p><b>जल्द ही उपलब्ध होंगे...</b></p>
+<div class="blob blob1"></div>
+<div class="blob blob2"></div>
 
-    <a href="/index.html" class="btn">⬅ Back to Home</a>
+<div class="container">
+
+<div class="badge">📚 RS Hub Diploma Resources</div>
+
+<h1>
+PECE <br>
+<span>Notes</span>
+</h1>
+
+<p>
+Jharkhand Polytechnic Entrance Exam ke liye notes aur study materials
+prepare kiye ja rahe hain.
+</p>
+
+<div class="status">
+
+🚧 Notes अभी तैयार हो रहे हैं <br>
+
+🔥 जल्द ही उपलब्ध होंगे...
+
+</div>
+
+<a href="/index.html" class="btn">
+⬅ Back to Home
+</a>
+
 </div>
 
 </body>
