@@ -5,119 +5,353 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>2nd Semester Study Material</title>
+<title>2nd Semester Study Material | RS Hub Diploma</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
 
 <style>
 
-/* GENERAL */
-body{
+:root{
+    --blue:#1a56ff;
+    --purple:#7c3aed;
+    --gold:#f59e0b;
+    --dark:#0a0a1a;
+    --darker:#050510;
+    --white:#ffffff;
+    --gray:#a0aec0;
+    --card-bg:rgba(255,255,255,0.04);
+    --border:rgba(255,255,255,0.08);
+}
+
+*{
     margin:0;
-    font-family: 'Poppins', sans-serif;
-    background: linear-gradient(135deg,#eef2f7,#dfe9f3);
+    padding:0;
+    box-sizing:border-box;
 }
 
-/* CONTAINER */
-.container{
-    padding:25px;
-    max-width:950px;
-    margin:auto;
+html{
+    scroll-behavior:smooth;
 }
 
-/* HEADING */
-h1{
-    text-align:center;
-    color:#ff6b2b;
-    font-weight:600;
-    margin-bottom:25px;
+body{
+    font-family:'DM Sans',sans-serif;
+    background:var(--darker);
+    color:white;
+    overflow-x:hidden;
 }
 
-/* SECTION */
-.section{
-    margin-bottom:30px;
-    background: rgba(255,255,255,0.6);
-    backdrop-filter: blur(10px);
-    padding:20px;
-    border-radius:15px;
-    box-shadow:0 4px 15px rgba(0,0,0,0.08);
+/* BACKGROUND */
+
+body::before{
+    content:'';
+    position:fixed;
+    inset:0;
+    background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+    pointer-events:none;
+    z-index:9999;
+    opacity:0.4;
 }
 
-.section h2{
-    margin-bottom:15px;
-    color:#ff6b2b;
+/* NAVBAR */
+
+.nav{
+    position:fixed;
+    top:0;
+    left:0;
+    right:0;
+    height:64px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 24px;
+    background:rgba(5,5,16,0.88);
+    backdrop-filter:blur(18px);
+    border-bottom:1px solid var(--border);
+    z-index:1000;
 }
 
-/* LINKS DESIGN */
-.links a{
-    display:block;
-    background:white;
-    padding:14px;
-    margin:10px 0;
-    border-radius:12px;
+.nav-logo{
+    display:flex;
+    align-items:center;
+    gap:12px;
     text-decoration:none;
-    color:#333;
-    font-weight:500;
-    box-shadow:0 4px 10px rgba(0,0,0,0.08);
+}
+
+.nav-logo img{
+    width:38px;
+    height:38px;
+    border-radius:50%;
+    border:2px solid var(--gold);
+}
+
+.nav-logo span{
+    font-family:'Syne',sans-serif;
+    font-weight:800;
+    font-size:17px;
+    color:white;
+}
+
+.back-btn{
+    text-decoration:none;
+    color:white;
+    background:rgba(255,255,255,0.07);
+    border:1px solid rgba(255,255,255,0.12);
+    padding:10px 18px;
+    border-radius:10px;
+    font-size:14px;
+    font-weight:600;
     transition:0.3s;
+}
+
+.back-btn:hover{
+    background:rgba(26,86,255,0.2);
+    border-color:rgba(26,86,255,0.4);
+    transform:translateY(-2px);
+}
+
+/* HERO */
+
+.hero{
+    padding:130px 20px 70px;
     position:relative;
     overflow:hidden;
 }
 
-.links a::after{
-    content:'';
+.blob{
     position:absolute;
-    width:0%;
-    height:100%;
-    left:0;
-    top:0;
-    background:#ff6b2b;
-    z-index:0;
-    transition:0.3s;
+    border-radius:50%;
+    filter:blur(90px);
+    opacity:0.25;
 }
 
-.links a:hover::after{
-    width:100%;
+.blob1{
+    width:420px;
+    height:420px;
+    background:var(--blue);
+    top:-120px;
+    left:-120px;
 }
 
-.links a span{
+.blob2{
+    width:350px;
+    height:350px;
+    background:var(--purple);
+    right:-100px;
+    top:80px;
+}
+
+.hero-content{
     position:relative;
     z-index:1;
+    max-width:900px;
+    margin:auto;
+    text-align:center;
+}
+
+.badge{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    background:rgba(245,158,11,0.12);
+    border:1px solid rgba(245,158,11,0.3);
+    color:var(--gold);
+    padding:7px 16px;
+    border-radius:30px;
+    font-size:13px;
+    font-weight:700;
+    margin-bottom:24px;
+}
+
+.hero h1{
+    font-family:'Syne',sans-serif;
+    font-size:clamp(36px,5vw,58px);
+    font-weight:800;
+    line-height:1.1;
+    margin-bottom:20px;
+    letter-spacing:-1.5px;
+}
+
+.hero h1 span{
+    background:linear-gradient(135deg,var(--blue),var(--purple));
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+}
+
+.hero p{
+    color:var(--gray);
+    font-size:17px;
+    line-height:1.7;
+    max-width:650px;
+    margin:auto;
+}
+
+/* MAIN */
+
+.container{
+    max-width:1100px;
+    margin:auto;
+    padding:20px;
+}
+
+/* SECTION */
+
+.section{
+    margin-bottom:35px;
+    background:var(--card-bg);
+    border:1px solid var(--border);
+    padding:28px;
+    border-radius:22px;
+    backdrop-filter:blur(12px);
+    transition:0.35s;
+}
+
+.section:hover{
+    border-color:rgba(255,255,255,0.14);
+    transform:translateY(-4px);
+}
+
+.section-title{
+    font-family:'Syne',sans-serif;
+    font-size:28px;
+    margin-bottom:20px;
+    letter-spacing:-1px;
+}
+
+.section-title span{
+    color:var(--blue);
+}
+
+/* GRID */
+
+.links{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+    gap:18px;
+}
+
+/* LINKS */
+
+.links a{
+    text-decoration:none;
+    color:white;
+    background:rgba(255,255,255,0.04);
+    border:1px solid var(--border);
+    border-radius:16px;
+    padding:20px;
+    transition:0.35s cubic-bezier(0.4,0,0.2,1);
+    position:relative;
+    overflow:hidden;
+    display:flex;
+    align-items:center;
+    gap:12px;
+    font-size:15px;
+    font-weight:600;
+}
+
+.links a::before{
+    content:'';
+    position:absolute;
+    top:0;
+    left:0;
+    width:100%;
+    height:3px;
+    background:linear-gradient(90deg,var(--blue),var(--purple));
 }
 
 .links a:hover{
-    color:white;
-    transform:translateY(-3px);
+    transform:translateY(-5px);
+    background:rgba(255,255,255,0.08);
+    border-color:rgba(255,255,255,0.16);
+    box-shadow:0 18px 45px rgba(0,0,0,0.35);
 }
 
-/* WHATSAPP BUTTON */
+/* WHATSAPP */
+
 .whatsapp-btn{
-    display:block;
-    text-align:center;
-    background:linear-gradient(45deg,#25D366,#1ebe5d);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:12px;
+    background:linear-gradient(135deg,#25D366,#1ebe5d);
     color:white;
-    padding:15px;
-    border-radius:12px;
     text-decoration:none;
-    font-weight:600;
-    margin-bottom:20px;
-    box-shadow:0 4px 12px rgba(0,0,0,0.1);
+    padding:18px;
+    border-radius:16px;
+    font-size:18px;
+    font-weight:700;
     transition:0.3s;
+    box-shadow:0 12px 40px rgba(37,211,102,0.25);
 }
 
 .whatsapp-btn:hover{
-    transform:scale(1.05);
+    transform:translateY(-4px);
+    box-shadow:0 20px 50px rgba(37,211,102,0.35);
 }
 
 /* COMING SOON */
+
 .coming-soon{
-    background:white;
-    padding:18px;
-    border-radius:12px;
+    margin-top:18px;
+    background:rgba(255,255,255,0.04);
+    border:1px solid var(--border);
+    border-radius:16px;
+    padding:24px;
     text-align:center;
-    box-shadow:0 3px 10px rgba(0,0,0,0.08);
-    color:#555;
-    line-height:1.6;
+    color:var(--gray);
+    line-height:1.8;
+    font-size:16px;
+}
+
+.coming-soon strong{
+    color:white;
+}
+
+/* FOOTER */
+
+footer{
+    margin-top:70px;
+    padding:30px 20px;
+    border-top:1px solid var(--border);
+    text-align:center;
+    color:var(--gray);
+    font-size:14px;
+}
+
+footer span{
+    background:linear-gradient(135deg,var(--blue),var(--purple));
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+    font-weight:700;
+}
+
+/* RESPONSIVE */
+
+@media(max-width:768px){
+
+    .nav{
+        padding:0 16px;
+    }
+
+    .nav-logo span{
+        font-size:15px;
+    }
+
+    .hero{
+        padding-top:120px;
+    }
+
+    .section{
+        padding:22px;
+    }
+
+    .section-title{
+        font-size:24px;
+    }
+
+    .links{
+        grid-template-columns:1fr;
+    }
+
 }
 
 </style>
@@ -126,9 +360,48 @@ h1{
 
 <body>
 
-<div class="container">
+<!-- NAVBAR -->
 
-<h1>📚 2nd Semester Study Material</h1>
+<nav class="nav">
+
+<a href="../../../../index.html" class="nav-logo">
+<img src="https://i.ibb.co/mrDvHHXY/logo.jpg" alt="Logo">
+<span>RS Hub Diploma</span>
+</a>
+
+<a href="../../../../index.html" class="back-btn">← Back Home</a>
+
+</nav>
+
+<!-- HERO -->
+
+<section class="hero">
+
+<div class="blob blob1"></div>
+<div class="blob blob2"></div>
+
+<div class="hero-content">
+
+<div class="badge">📚 JUT Diploma Resources</div>
+
+<h1>
+JUT Diploma 2nd Semester <br>
+<span>Study Material</span>
+</h1>
+
+<p>
+Access syllabus, common subjects, branch-wise notes,
+important questions, PYQs and premium learning resources
+for JUT Diploma students.
+</p>
+
+</div>
+
+</section>
+
+<!-- MAIN -->
+
+<div class="container">
 
 <!-- WHATSAPP -->
 
@@ -140,21 +413,23 @@ h1{
 
 </div>
 
-<!-- SYLLABUS SECTION -->
+<!-- SYLLABUS -->
 
 <div class="section">
 
-<h2>📚 Syllabus</h2>
+<h2 class="section-title">📚 <span>Syllabus</span></h2>
 
 <div class="links">
 
-<a href="syllabus/syllabus.html"><span>📖 All Branch Syllabus</span></a>
+<a href="syllabus/syllabus.html">
+📖 All Branch Syllabus
+</a>
 
 </div>
 
 <div class="coming-soon">
 
-All branch ka syllabus respective branch ke andar available rahega. <br><br>
+All branches ka syllabus respective branch section ke andar available rahega.<br><br>
 
 👉 Apni branch select karke syllabus check karein.
 
@@ -166,13 +441,21 @@ All branch ka syllabus respective branch ke andar available rahega. <br><br>
 
 <div class="section">
 
-<h2>📖 Common Subjects</h2>
+<h2 class="section-title">📖 <span>Common Subjects</span></h2>
 
 <div class="links">
 
-<a href="FEEE/FEEE.html"><span>📘 Fundamental of electrical & electronics engineering</span></a>
-<a href="PMS/PMS.html"><span>📘 Project Management Skill</span></a>
-<a href="S&A/S&A.html"><span>📘 Statistic and Analytics</span></a>
+<a href="FEEE/FEEE.html">
+📘 Fundamental of Electrical & Electronics Engineering
+</a>
+
+<a href="PMS/PMS.html">
+📘 Project Management Skill
+</a>
+
+<a href="S&A/S&A.html">
+📘 Statistics & Analytics
+</a>
 
 </div>
 
@@ -182,18 +465,41 @@ All branch ka syllabus respective branch ke andar available rahega. <br><br>
 
 <div class="section">
 
-<h2>🏫 Branch Wise Subjects</h2>
+<h2 class="section-title">🏫 <span>Branch Wise Subjects</span></h2>
 
 <div class="links">
 
-<a href="EE/electrical.html"><span>⚡ Electrical (EE / EEE)</span></a>
-<a href="ECE/ece.html"><span>📡 Electronics (ECE)</span></a>
-<a href="ME/mechanical.html"><span>⚙ Mechanical Engineering</span></a>
-<a href="CE/civil.html"><span>🏗 Civil Engineering</span></a>
-<a href="CS/computer.html"><span>💻 Computer Science</span></a>
-<a href="mining/mining.html"><span>⛏ Mining Engineering</span></a>
-<a href="auto/automobile.html"><span>🚗 Automobile Engineering</span></a>
-<a href="metallurgical/metallurgical.html"><span>🔥 Metallurgical Engineering</span></a>
+<a href="EE/electrical.html">
+⚡ Electrical (EE / EEE)
+</a>
+
+<a href="ECE/ece.html">
+📡 Electronics (ECE)
+</a>
+
+<a href="ME/mechanical.html">
+⚙ Mechanical Engineering
+</a>
+
+<a href="CE/civil.html">
+🏗 Civil Engineering
+</a>
+
+<a href="CS/computer.html">
+💻 Computer Science
+</a>
+
+<a href="mining/mining.html">
+⛏ Mining Engineering
+</a>
+
+<a href="auto/automobile.html">
+🚗 Automobile Engineering
+</a>
+
+<a href="metallurgical/metallurgical.html">
+🔥 Metallurgical Engineering
+</a>
 
 </div>
 
@@ -203,20 +509,26 @@ All branch ka syllabus respective branch ke andar available rahega. <br><br>
 
 <div class="section">
 
-<h2>🚀 Coming Soon</h2>
+<h2 class="section-title">🚀 <span>Coming Soon</span></h2>
 
 <div class="coming-soon">
 
-2nd Semester ke liye aur bhi Notes, PYQ, Important Questions  
-aur Video Lectures jald hi upload kiye jayenge. <br><br>
+<strong>More Notes, PYQs, Important Questions and Video Lectures</strong>
+for 2nd Semester will be uploaded soon.<br><br>
 
-Stay connected 🔥
-
-</div>
+Stay connected with RS Hub Diploma 🔥
 
 </div>
 
 </div>
+
+</div>
+
+<!-- FOOTER -->
+
+<footer>
+© 2026 <span>RS Hub Diploma</span> · Made with ❤️ for JUT Diploma Students
+</footer>
 
 </body>
 </html>
