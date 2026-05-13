@@ -5,64 +5,340 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>5th Semester Study Material</title>
+<title>5th Semester Study Material | RS Hub Diploma</title>
 
-<link rel="stylesheet" href="../../../css/style.css">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
 
 <style>
 
-.container{
-padding:20px;
+:root{
+    --blue:#1a56ff;
+    --purple:#7c3aed;
+    --gold:#f59e0b;
+    --dark:#0a0a1a;
+    --darker:#050510;
+    --white:#ffffff;
+    --gray:#a0aec0;
+    --card-bg:rgba(255,255,255,0.04);
+    --border:rgba(255,255,255,0.08);
 }
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    font-family:'DM Sans',sans-serif;
+    background:var(--darker);
+    color:white;
+    overflow-x:hidden;
+}
+
+/* BACKGROUND EFFECT */
+
+body::before{
+    content:'';
+    position:fixed;
+    inset:0;
+    background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+    pointer-events:none;
+    z-index:9999;
+    opacity:0.4;
+}
+
+/* NAVBAR */
+
+.nav{
+    position:fixed;
+    top:0;
+    left:0;
+    right:0;
+    height:64px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 24px;
+    background:rgba(5,5,16,0.85);
+    backdrop-filter:blur(18px);
+    border-bottom:1px solid var(--border);
+    z-index:1000;
+}
+
+.nav-logo{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    text-decoration:none;
+}
+
+.nav-logo img{
+    width:38px;
+    height:38px;
+    border-radius:50%;
+    border:2px solid var(--gold);
+}
+
+.nav-logo span{
+    font-family:'Syne',sans-serif;
+    font-weight:800;
+    font-size:17px;
+    color:white;
+}
+
+.back-btn{
+    text-decoration:none;
+    color:white;
+    background:rgba(255,255,255,0.07);
+    border:1px solid rgba(255,255,255,0.12);
+    padding:10px 18px;
+    border-radius:10px;
+    font-size:14px;
+    font-weight:600;
+    transition:0.3s;
+}
+
+.back-btn:hover{
+    background:rgba(26,86,255,0.2);
+    border-color:rgba(26,86,255,0.4);
+    transform:translateY(-2px);
+}
+
+/* HERO */
+
+.hero{
+    padding:130px 20px 60px;
+    position:relative;
+    overflow:hidden;
+}
+
+.blob{
+    position:absolute;
+    border-radius:50%;
+    filter:blur(90px);
+    opacity:0.25;
+}
+
+.blob1{
+    width:400px;
+    height:400px;
+    background:var(--blue);
+    top:-120px;
+    left:-120px;
+}
+
+.blob2{
+    width:350px;
+    height:350px;
+    background:var(--purple);
+    right:-100px;
+    top:50px;
+}
+
+.hero-content{
+    position:relative;
+    z-index:1;
+    max-width:900px;
+    margin:auto;
+    text-align:center;
+}
+
+.badge{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    background:rgba(245,158,11,0.12);
+    border:1px solid rgba(245,158,11,0.3);
+    color:var(--gold);
+    padding:7px 16px;
+    border-radius:30px;
+    font-size:13px;
+    font-weight:700;
+    margin-bottom:24px;
+}
+
+.hero h1{
+    font-family:'Syne',sans-serif;
+    font-size:clamp(36px,5vw,58px);
+    font-weight:800;
+    line-height:1.1;
+    margin-bottom:20px;
+    letter-spacing:-1.5px;
+}
+
+.hero h1 span{
+    background:linear-gradient(135deg,var(--blue),var(--purple));
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+}
+
+.hero p{
+    color:var(--gray);
+    font-size:17px;
+    line-height:1.7;
+    max-width:650px;
+    margin:auto;
+}
+
+/* CONTAINER */
+
+.container{
+    max-width:1100px;
+    margin:auto;
+    padding:20px;
+}
+
+/* SECTION */
 
 .section{
-margin-bottom:30px;
+    margin-bottom:60px;
 }
 
-.section h2{
-color:#2b59ff;
-margin-bottom:10px;
+.section-title{
+    font-family:'Syne',sans-serif;
+    font-size:30px;
+    margin-bottom:20px;
+    letter-spacing:-1px;
 }
 
-.links a{
-display:block;
-background:white;
-padding:12px;
-margin:8px 0;
-border-radius:8px;
-text-decoration:none;
-color:#333;
-box-shadow:0 2px 6px rgba(0,0,0,0.1);
-transition:0.3s;
+.section-title span{
+    color:var(--blue);
 }
 
-.links a:hover{
-background:#2b59ff;
-color:white;
-transform:scale(1.03);
-}
+/* WHATSAPP BUTTON */
 
 .whatsapp-btn{
-display:block;
-background:#25D366;
-color:white;
-padding:12px;
-margin:8px 0;
-border-radius:8px;
-text-decoration:none;
-font-weight:bold;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:12px;
+    background:linear-gradient(135deg,#25D366,#1ebe5d);
+    color:white;
+    text-decoration:none;
+    padding:18px;
+    border-radius:16px;
+    font-size:18px;
+    font-weight:700;
+    transition:0.3s;
+    box-shadow:0 12px 40px rgba(37,211,102,0.25);
+    margin-bottom:16px;
 }
 
 .whatsapp-btn:hover{
-background:#1ebd5a;
+    transform:translateY(-4px);
+    box-shadow:0 20px 50px rgba(37,211,102,0.35);
 }
 
+/* GRID */
+
+.links{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+    gap:18px;
+}
+
+/* CARD LINKS */
+
+.links a{
+    text-decoration:none;
+    color:white;
+    background:var(--card-bg);
+    border:1px solid var(--border);
+    border-radius:18px;
+    padding:22px;
+    transition:0.35s cubic-bezier(0.4,0,0.2,1);
+    position:relative;
+    overflow:hidden;
+    font-size:16px;
+    font-weight:600;
+    display:flex;
+    align-items:center;
+    gap:12px;
+    backdrop-filter:blur(10px);
+}
+
+.links a::before{
+    content:'';
+    position:absolute;
+    top:0;
+    left:0;
+    width:100%;
+    height:3px;
+    background:linear-gradient(90deg,var(--blue),var(--purple));
+}
+
+.links a:hover{
+    transform:translateY(-6px);
+    background:rgba(255,255,255,0.07);
+    border-color:rgba(255,255,255,0.15);
+    box-shadow:0 20px 50px rgba(0,0,0,0.35);
+}
+
+/* COMING SOON */
+
 .coming-soon{
-background:linear-gradient(45deg,#ff9a9e,#fad0c4);
-padding:20px;
-border-radius:10px;
-text-align:center;
-font-weight:bold;
+    background:var(--card-bg);
+    border:1px solid var(--border);
+    border-radius:20px;
+    padding:35px;
+    text-align:center;
+    color:var(--gray);
+    line-height:1.9;
+    font-size:17px;
+    backdrop-filter:blur(10px);
+}
+
+.coming-soon strong{
+    color:white;
+}
+
+/* FOOTER */
+
+footer{
+    margin-top:70px;
+    padding:30px 20px;
+    border-top:1px solid var(--border);
+    text-align:center;
+    color:var(--gray);
+    font-size:14px;
+}
+
+footer span{
+    background:linear-gradient(135deg,var(--blue),var(--purple));
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+    font-weight:700;
+}
+
+/* RESPONSIVE */
+
+@media(max-width:768px){
+
+    .nav{
+        padding:0 16px;
+    }
+
+    .nav-logo span{
+        font-size:15px;
+    }
+
+    .hero{
+        padding-top:120px;
+    }
+
+    .section-title{
+        font-size:26px;
+    }
+
+    .links{
+        grid-template-columns:1fr;
+    }
+
 }
 
 </style>
@@ -71,15 +347,53 @@ font-weight:bold;
 
 <body>
 
-<div class="container">
+<!-- NAVBAR -->
 
-<h1>📚 5th Semester Study Material</h1>
+<nav class="nav">
+
+<a href="../../../index.html" class="nav-logo">
+<img src="https://i.ibb.co/mrDvHHXY/logo.jpg" alt="Logo">
+<span>RS Hub Diploma</span>
+</a>
+
+<a href="../../../index.html" class="back-btn">← Back Home</a>
+
+</nav>
+
+<!-- HERO -->
+
+<section class="hero">
+
+<div class="blob blob1"></div>
+<div class="blob blob2"></div>
+
+<div class="hero-content">
+
+<div class="badge">📚 JUT Diploma Resources</div>
+
+<h1>
+JUT Diploma 5th Semester <br>
+<span>Study Material</span>
+</h1>
+
+<p>
+Access premium notes, PDFs, PYQs and branch-wise study materials
+for 5th Semester students — all in one place.
+</p>
+
+</div>
+
+</section>
+
+<!-- MAIN -->
+
+<div class="container">
 
 <!-- WHATSAPP -->
 
 <div class="section">
 
-<h2>📢 Join WhatsApp Groups</h2>
+<h2 class="section-title">📢 <span>Join WhatsApp Groups</span></h2>
 
 <a href="https://chat.whatsapp.com/GQVl5i2A7JVGqcLDMLL6wn" target="_blank" class="whatsapp-btn">
 ⚡ EE / EEE Group
@@ -91,12 +405,11 @@ font-weight:bold;
 
 </div>
 
-
 <!-- BRANCH SECTION -->
 
 <div class="section">
 
-<h2>🏫 Branch Wise Study Material</h2>
+<h2 class="section-title">🏫 <span>Branch Wise Study Material</span></h2>
 
 <div class="links">
 
@@ -118,25 +431,31 @@ font-weight:bold;
 
 </div>
 
-
 <!-- COMING SOON -->
 
 <div class="section">
 
-<h2>🚀 Coming Soon</h2>
+<h2 class="section-title">🚀 <span>Coming Soon</span></h2>
 
 <div class="coming-soon">
 
-Remaining subjects, notes, PDFs and important questions  
-will be uploaded very soon.  
+<strong>Remaining subjects, notes, PDFs and important questions</strong>
+will be uploaded very soon for all branches.
+<br><br>
 
-Stay connected with RS Hub Diploma 🔥  
+Stay connected with <strong>RS Hub Diploma</strong> 🔥
+
+</div>
 
 </div>
 
 </div>
 
-</div>
+<!-- FOOTER -->
+
+<footer>
+© 2026 <span>RS Hub Diploma</span> · Made with ❤️ for JUT Diploma Students
+</footer>
 
 </body>
 </html>
