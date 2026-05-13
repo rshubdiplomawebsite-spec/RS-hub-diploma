@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Student Login — RS Hub Diploma</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --blue: #1a56ff;
+  --purple: #7c3aed;
+  --gold: #f59e0b;
+  --darker: #050510;
+  --dark: #0a0a1a;
+  --card: #0d0d24;
+  --white: #ffffff;
+  --gray: #a0aec0;
+  --border: rgba(255,255,255,0.08);
+  --card-bg: rgba(255,255,255,0.04);
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--darker);
+  color: var(--white);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+}
+
+/* BLOBS */
+.bg-blobs {
+  position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden;
+}
+.blob {
+  position: absolute; border-radius: 50%;
+  filter: blur(90px); opacity: 0.2;
+  animation: drift 14s ease-in-out infinite alternate;
+}
+.blob-1 { width: 500px; height: 500px; background: radial-gradient(circle, var(--blue), transparent); top: -150px; left: -100px; }
+.blob-2 { width: 400px; height: 400px; background: radial-gradient(circle, var(--purple), transparent); bottom: -100px; right: -80px; animation-delay: -5s; }
+.blob-3 { width: 300px; height: 300px; background: radial-gradient(circle, #0ea5e9, transparent); top: 50%; left: 50%; animation-delay: -10s; }
+@keyframes drift { from { transform: translate(0,0) scale(1); } to { transform: translate(30px,25px) scale(1.08); } }
+
+/* NAV BAR */
+.topbar {
+  position: relative; z-index: 10;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 16px 32px;
+  background: rgba(5,5,16,0.6);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+}
+.topbar-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+.topbar-logo img { width: 32px; height: 32px; border-radius: 50%; border: 2px solid var(--gold); }
+.topbar-logo span { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 16px; color: white; }
+.topbar-back {
+  display: flex; align-items: center; gap: 6px;
+  color: var(--gray); text-decoration: none; font-size: 13.5px;
+  font-weight: 500; transition: 0.2s;
+  padding: 7px 14px; border-radius: 8px;
+  border: 1px solid var(--border); background: var(--card-bg);
+}
+.topbar-back:hover { color: white; border-color: rgba(255,255,255,0.15); }
+
+/* MAIN LAYOUT */
+.main {
+  position: relative; z-index: 1;
+  flex: 1; display: flex; align-items: center; justify-content: center;
+  padding: 40px 20px;
+}
+
+/* CARD */
+.auth-card {
+  background: var(--card);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 24px;
+  width: 100%; max-width: 460px;
+  padding: 44px 40px;
+  box-shadow: 0 40px 100px rgba(0,0,0,0.5);
+  animation: slideUp 0.5s cubic-bezier(0.4,0,0.2,1) both;
+}
+@keyframes slideUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+
+/* LOGO AREA */
+.card-logo {
+  display: flex; flex-direction: column; align-items: center;
+  gap: 10px; margin-bottom: 32px;
+}
+.logo-ring {
+  width: 64px; height: 64px; border-radius: 50%;
+  background: linear-gradient(135deg, var(--blue), var(--purple));
+  display: flex; align-items: center; justify-content: center;
+  font-size: 28px;
+  box-shadow: 0 8px 32px rgba(26,86,255,0.45);
+  animation: glow 3s ease-in-out infinite alternate;
+}
+@keyframes glow {
+  from { box-shadow: 0 8px 32px rgba(26,86,255,0.45); }
+  to   { box-shadow: 0 8px 40px rgba(124,58,237,0.6); }
+}
+.card-logo h1 { font-family: 'Syne', sans-serif; font-size: 22px; font-weight: 800; letter-spacing: -0.5px; }
+.card-logo p { font-size: 13px; color: var(--gray); margin-top: -4px; }
+
+/* TABS */
+.tabs {
+  display: flex;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 4px; margin-bottom: 28px; gap: 4px;
+}
+.tab {
+  flex: 1; text-align: center; padding: 10px;
+  border-radius: 9px; font-size: 14px; font-weight: 600;
+  cursor: pointer; transition: all 0.25s; color: var(--gray);
+  border: none; background: none; font-family: 'DM Sans', sans-serif;
+}
+.tab.active {
+  background: linear-gradient(135deg, var(--blue), var(--purple));
+  color: white; box-shadow: 0 4px 16px rgba(26,86,255,0.35);
+}
+
+/* PANELS */
+.panel { display: none; }
+.panel.active { display: block; animation: fadeIn 0.3s ease; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+/* FORM */
+.form-group { margin-bottom: 16px; }
+.form-group label {
+  display: block; font-size: 11.5px; font-weight: 700;
+  color: var(--gray); margin-bottom: 7px;
+  letter-spacing: 0.6px; text-transform: uppercase;
+}
+.input-wrap { position: relative; }
+.input-wrap .i-icon {
+  position: absolute; left: 13px; top: 50%;
+  transform: translateY(-50%); font-size: 16px; pointer-events: none;
+}
+.input-wrap input { padding-left: 40px !important; }
+
+input, select {
+  width: 100%; background: rgba(255,255,255,0.05);
+  border: 1px solid var(--border); border-radius: 11px;
+  padding: 12px 16px; color: white; font-size: 14.5px;
+  font-family: 'DM Sans', sans-serif; transition: 0.2s; outline: none;
+  -webkit-appearance: none;
+}
+input::placeholder { color: rgba(255,255,255,0.22); }
+input:focus, select:focus {
+  border-color: rgba(26,86,255,0.7);
+  background: rgba(26,86,255,0.07);
+  box-shadow: 0 0 0 3px rgba(26,86,255,0.13);
+}
+select option { background: #0d0d24; color: white; }
+
+.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+
+.forgot {
+  text-align: right; margin-top: -8px; margin-bottom: 18px;
+}
+.forgot a { font-size: 12.5px; color: #7c9dff; text-decoration: none; transition: 0.2s; }
+.forgot a:hover { color: white; }
+
+/* SUBMIT BUTTON */
+.btn-main {
+  width: 100%; background: linear-gradient(135deg, var(--blue), var(--purple));
+  color: white; border: none; padding: 14px;
+  border-radius: 11px; font-size: 15.5px; font-weight: 700;
+  cursor: pointer; font-family: 'DM Sans', sans-serif;
+  transition: 0.2s; margin-top: 6px;
+  box-shadow: 0 4px 20px rgba(26,86,255,0.35); letter-spacing: 0.2px;
+}
+.btn-main:hover { transform: translateY(-2px); box-shadow: 0 10px 35px rgba(26,86,255,0.55); }
+.btn-main:active { transform: scale(0.98); }
+.btn-main:disabled { opacity: 0.55; cursor: not-allowed; transform: none; }
+
+/* OR DIVIDER */
+.or-line {
+  display: flex; align-items: center; gap: 12px;
+  margin: 20px 0; color: var(--gray); font-size: 12px;
+}
+.or-line::before, .or-line::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+
+/* GOOGLE BUTTON */
+.btn-google {
+  width: 100%; background: rgba(255,255,255,0.05);
+  border: 1px solid var(--border); color: white; padding: 12px;
+  border-radius: 11px; font-size: 14.5px; font-weight: 600;
+  cursor: pointer; font-family: 'DM Sans', sans-serif; transition: 0.2s;
+  display: flex; align-items: center; justify-content: center; gap: 10px;
+}
+.btn-google:hover { background: rgba(255,255,255,0.09); border-color: rgba(255,255,255,0.2); transform: translateY(-1px); }
+
+/* TERMS */
+.terms-txt {
+  font-size: 12px; color: var(--gray);
+  text-align: center; margin-top: 14px; line-height: 1.6;
+}
+.terms-txt a { color: #7c9dff; text-decoration: none; }
+
+/* ERROR */
+.err-box {
+  background: rgba(239,68,68,0.12);
+  border: 1px solid rgba(239,68,68,0.3);
+  color: #fca5a5; padding: 11px 14px; border-radius: 9px;
+  font-size: 13.5px; margin-bottom: 16px; display: none; line-height: 1.5;
+}
+
+/* SUCCESS STATE */
+.success-wrap {
+  display: none; flex-direction: column; align-items: center;
+  gap: 16px; text-align: center; padding: 24px 0;
+}
+.success-circle {
+  width: 76px; height: 76px; border-radius: 50%;
+  background: rgba(16,185,129,0.14);
+  border: 2px solid rgba(16,185,129,0.4);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 34px;
+  animation: popIn 0.45s cubic-bezier(0.4,0,0.2,1);
+}
+@keyframes popIn { from { transform: scale(0.4); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+.success-wrap h2 { font-family: 'Syne', sans-serif; font-size: 24px; font-weight: 800; }
+.success-wrap p { color: var(--gray); font-size: 14.5px; line-height: 1.6; }
+.btn-dashboard {
+  width: 100%; background: linear-gradient(135deg, #10b981, #059669);
+  color: white; border: none; padding: 14px; border-radius: 11px;
+  font-size: 15px; font-weight: 700; cursor: pointer;
+  font-family: 'DM Sans', sans-serif; transition: 0.2s; margin-top: 4px;
+  box-shadow: 0 4px 20px rgba(16,185,129,0.35);
+}
+.btn-dashboard:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(16,185,129,0.5); }
+
+/* PASSWORD STRENGTH */
+.pass-strength { margin-top: 6px; height: 4px; border-radius: 4px; background: var(--border); overflow: hidden; }
+.pass-bar { height: 100%; border-radius: 4px; transition: 0.3s; width: 0; }
+.pass-hint { font-size: 11.5px; margin-top: 5px; }
+
+/* FOOTER */
+.page-footer {
+  position: relative; z-index: 1;
+  text-align: center; padding: 18px;
+  color: var(--gray); font-size: 12.5px;
+  border-top: 1px solid var(--border);
+}
+.page-footer span { color: white; font-weight: 600; }
+
+/* RESPONSIVE */
+@media(max-width: 500px) {
+  .auth-card { padding: 32px 22px; border-radius: 18px; }
+  .two-col { grid-template-columns: 1fr; }
+  .topbar { padding: 14px 18px; }
+}
+</style>
+</head>
+<body>
+
+<!-- BG BLOBS -->
+<div class="bg-blobs">
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+  <div class="blob blob-3"></div>
+</div>
+
+<!-- TOP BAR -->
+<div class="topbar">
+  <a href="../index.html" class="topbar-logo">
+    <img src="https://i.ibb.co/mrDvHHXY/logo.jpg" alt="Logo">
+    <span>RS Hub Diploma</span>
+  </a>
+  <a href="../index.html" class="topbar-back">← Back to Home</a>
+</div>
+
+<!-- MAIN CONTENT -->
+<div class="main">
+  <div class="auth-card">
+
+    <!-- LOGO -->
+    <div class="card-logo">
+      <div class="logo-ring">🎓</div>
+      <h1>Student Portal</h1>
+      <p>RS Hub Diploma — JUT Jharkhand</p>
+    </div>
+
+    <!-- TABS -->
+    <div class="tabs" id="tabs">
+      <button class="tab active" id="tab-login"    onclick="switchTab('login')">🔑 Login</button>
+      <button class="tab"        id="tab-register" onclick="switchTab('register')">📝 Register</button>
+    </div>
+
+    <!-- ══ LOGIN PANEL ══ -->
+    <div class="panel active" id="panel-login">
+      <div class="err-box" id="login-err"></div>
+
+      <div class="form-group">
+        <label>Email Address</label>
+        <div class="input-wrap">
+          <span class="i-icon">📧</span>
+          <input type="email" id="l-email" placeholder="apna@email.com" autocomplete="email">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Password</label>
+        <div class="input-wrap">
+          <span class="i-icon">🔒</span>
+          <input type="password" id="l-pass" placeholder="Password dalein" autocomplete="current-password">
+        </div>
+      </div>
+
+      <div class="forgot">
+        <a href="#" onclick="doForgot(); return false;">Password bhool gaye?</a>
+      </div>
+
+      <button class="btn-main" id="btn-login" onclick="doLogin()">
+        🚀 Login Karein
+      </button>
+
+      <div class="or-line">ya is se login karein</div>
+
+      <button class="btn-google" onclick="doGoogle()">
+        <svg width="18" height="18" viewBox="0 0 48 48">
+          <path fill="#FFC107" d="M43.611 20.083H42V20H24v8h11.303c-1.649 4.657-6.08 8-11.303 8-6.627 0-12-5.373-12-12s5.373-12 12-12c3.059 0 5.842 1.154 7.961 3.039l5.657-5.657C34.046 6.053 29.268 4 24 4 12.955 4 4 12.955 4 24s8.955 20 20 20 20-8.955 20-20c0-1.341-.138-2.65-.389-3.917z"/>
+          <path fill="#FF3D00" d="m6.306 14.691 6.571 4.819C14.655 15.108 18.961 12 24 12c3.059 0 5.842 1.154 7.961 3.039l5.657-5.657C34.046 6.053 29.268 4 24 4 16.318 4 9.656 8.337 6.306 14.691z"/>
+          <path fill="#4CAF50" d="M24 44c5.166 0 9.86-1.977 13.409-5.192l-6.19-5.238A11.91 11.91 0 0 1 24 36c-5.202 0-9.619-3.317-11.283-7.946l-6.522 5.025C9.505 39.556 16.227 44 24 44z"/>
+          <path fill="#1976D2" d="M43.611 20.083H42V20H24v8h11.303a12.04 12.04 0 0 1-4.087 5.571l.003-.002 6.19 5.238C36.971 39.205 44 34 44 24c0-1.341-.138-2.65-.389-3.917z"/>
+        </svg>
+        Google se Login
+      </button>
+
+      <p class="terms-txt">
+        Account nahi hai? <a href="#" onclick="switchTab('register'); return false;">Register karein →</a>
+      </p>
+    </div>
+
+    <!-- ══ REGISTER PANEL ══ -->
+    <div class="panel" id="panel-register">
+      <div class="err-box" id="reg-err"></div>
+
+      <div class="two-col">
+        <div class="form-group">
+          <label>First Name</label>
+          <div class="input-wrap">
+            <span class="i-icon">👤</span>
+            <input type="text" id="r-fname" placeholder="Pehla naam">
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Last Name</label>
+          <input type="text" id="r-lname" placeholder="Doosra naam">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Email Address</label>
+        <div class="input-wrap">
+          <span class="i-icon">📧</span>
+          <input type="email" id="r-email" placeholder="apna@email.com" autocomplete="email">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Phone Number</label>
+        <div class="input-wrap">
+          <span class="i-icon">📱</span>
+          <input type="tel" id="r-phone" placeholder="10-digit mobile number" maxlength="10">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Branch / Course</label>
+        <select id="r-branch">
+          <option value="">— Apni branch chunein —</option>
+          <option>Electrical Engineering (EE)</option>
+          <option>Electronics &amp; Electrical (EEE)</option>
+          <option>Civil Engineering</option>
+          <option>Mechanical Engineering</option>
+          <option>Computer Science (CS)</option>
+          <option>Information Technology (IT)</option>
+          <option>Mining Engineering</option>
+          <option>Other</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Current Semester</label>
+        <select id="r-sem">
+          <option value="">— Semester chunein —</option>
+          <option>1st Semester</option>
+          <option>2nd Semester</option>
+          <option>3rd Semester</option>
+          <option>4th Semester</option>
+          <option>5th Semester</option>
+          <option>6th Semester</option>
+          <option>PECE Aspirant</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Password Banayein</label>
+        <div class="input-wrap">
+          <span class="i-icon">🔒</span>
+          <input type="password" id="r-pass" placeholder="Kam se kam 8 characters" oninput="checkStrength(this.value)" autocomplete="new-password">
+        </div>
+        <div class="pass-strength"><div class="pass-bar" id="pass-bar"></div></div>
+        <div class="pass-hint" id="pass-hint" style="color:var(--gray)"></div>
+      </div>
+
+      <button class="btn-main" id="btn-reg" onclick="doRegister()">
+        ✅ Account Banayein
+      </button>
+
+      <div class="or-line">ya is se register karein</div>
+
+      <button class="btn-google" onclick="doGoogle()">
+        <svg width="18" height="18" viewBox="0 0 48 48">
+          <path fill="#FFC107" d="M43.611 20.083H42V20H24v8h11.303c-1.649 4.657-6.08 8-11.303 8-6.627 0-12-5.373-12-12s5.373-12 12-12c3.059 0 5.842 1.154 7.961 3.039l5.657-5.657C34.046 6.053 29.268 4 24 4 12.955 4 4 12.955 4 24s8.955 20 20 20 20-8.955 20-20c0-1.341-.138-2.65-.389-3.917z"/>
+          <path fill="#FF3D00" d="m6.306 14.691 6.571 4.819C14.655 15.108 18.961 12 24 12c3.059 0 5.842 1.154 7.961 3.039l5.657-5.657C34.046 6.053 29.268 4 24 4 16.318 4 9.656 8.337 6.306 14.691z"/>
+          <path fill="#4CAF50" d="M24 44c5.166 0 9.86-1.977 13.409-5.192l-6.19-5.238A11.91 11.91 0 0 1 24 36c-5.202 0-9.619-3.317-11.283-7.946l-6.522 5.025C9.505 39.556 16.227 44 24 44z"/>
+          <path fill="#1976D2" d="M43.611 20.083H42V20H24v8h11.303a12.04 12.04 0 0 1-4.087 5.571l.003-.002 6.19 5.238C36.971 39.205 44 34 44 24c0-1.341-.138-2.65-.389-3.917z"/>
+        </svg>
+        Google se Register
+      </button>
+
+      <p class="terms-txt">
+        Account hai? <a href="#" onclick="switchTab('login'); return false;">← Login karein</a><br>
+        Register karke aap hamare <a href="../disclimer.html">Terms &amp; Conditions</a> se agree karte hain.
+      </p>
+    </div>
+
+    <!-- ══ SUCCESS STATE ══ -->
+    <div class="success-wrap" id="successWrap">
+      <div class="success-circle">🎉</div>
+      <h2 id="success-title">Welcome!</h2>
+      <p id="success-msg">Login ho gaya.</p>
+      <button class="btn-dashboard" onclick="gotoDashboard()">
+        📊 Dashboard par Jayein →
+      </button>
+    </div>
+
+  </div>
+</div>
+
+<!-- FOOTER -->
+<div class="page-footer">
+  © 2026 <span>RS Hub Diploma</span> · Ranjan Kumar Mehta · Jharkhand
+</div>
+
+<!-- ══ FIREBASE AUTH ══ -->
+<script type="module">
+import { initializeApp }                           from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import { getAuth, createUserWithEmailAndPassword,
+         signInWithEmailAndPassword, onAuthStateChanged,
+         updateProfile, sendPasswordResetEmail,
+         GoogleAuthProvider, signInWithPopup }     from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+import { getFirestore, doc, setDoc, getDoc }       from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+/* CONFIG */
+const app = initializeApp({
+  apiKey:            "AIzaSyDXUKj8_xzhu1_412obJgYDDjy_zTiexkk",
+  authDomain:        "rs-hub-diploma-2a7c8.firebaseapp.com",
+  projectId:         "rs-hub-diploma-2a7c8",
+  storageBucket:     "rs-hub-diploma-2a7c8.firebasestorage.app",
+  messagingSenderId: "1084533575877",
+  appId:             "1:1084533575877:web:10c9a9ba0f5d20e5d0a0ac"
+});
+const auth      = getAuth(app);
+const db        = getFirestore(app);
+const gProvider = new GoogleAuthProvider();
+
+/* If already logged in → go to dashboard */
+onAuthStateChanged(auth, user => {
+  if (user) {
+    // Already logged in — redirect to dashboard
+    window.location.href = 'dashboard.html';
+  }
+});
+
+/* ── TAB SWITCH ── */
+window.switchTab = function(tab) {
+  ['login','register'].forEach(t => {
+    document.getElementById('tab-'+t).classList.toggle('active', t===tab);
+    document.getElementById('panel-'+t).classList.toggle('active', t===tab);
+  });
+  clearErr();
+};
+
+/* ── HELPERS ── */
+function showErr(id, msg) {
+  const el = document.getElementById(id);
+  el.innerHTML = msg; el.style.display = 'block';
+}
+function clearErr() {
+  ['login-err','reg-err'].forEach(id => {
+    const el = document.getElementById(id);
+    el.innerHTML = ''; el.style.display = 'none';
+  });
+}
+function busy(id, on, label) {
+  const b = document.getElementById(id);
+  b.disabled = on; b.textContent = on ? '⏳ Please wait...' : label;
+}
+function showSuccess(title, msg) {
+  document.getElementById('tabs').style.display = 'none';
+  document.getElementById('panel-login').style.display = 'none';
+  document.getElementById('panel-register').style.display = 'none';
+  document.getElementById('success-title').textContent = title;
+  document.getElementById('success-msg').textContent   = msg;
+  document.getElementById('successWrap').style.display = 'flex';
+}
+window.gotoDashboard = () => { window.location.href = 'dashboard.html'; };
+
+/* Error code → Hindi message */
+const ERR = {
+  'auth/invalid-credential':  '❌ Email ya password galat hai!',
+  'auth/user-not-found':      '❌ Koi account nahi mila — pehle Register karo!',
+  'auth/wrong-password':      '❌ Password galat hai!',
+  'auth/email-already-in-use':'❌ Ye email already registered hai — Login karein!',
+  'auth/weak-password':       '❌ Password aur strong banana hoga!',
+  'auth/invalid-email':       '❌ Sahi email format dalo.',
+  'auth/too-many-requests':   '⚠️ Zyada attempts! Thodi der baad try karo.',
+  'auth/network-request-failed': '⚠️ Internet connection check karein.'
+};
+const getMsg = code => ERR[code] || ('❌ Kuch gadbad hui: ' + code);
+
+/* ── LOGIN ── */
+window.doLogin = async function() {
+  const email = document.getElementById('l-email').value.trim();
+  const pass  = document.getElementById('l-pass').value;
+  if (!email || !pass) { showErr('login-err','⚠️ Email aur password dono bharo!'); return; }
+  busy('btn-login', true, '🚀 Login Karein');
+  try {
+    const cred = await signInWithEmailAndPassword(auth, email, pass);
+    const name = (cred.user.displayName || 'Student').split(' ')[0];
+    showSuccess(`Wah, ${name}! 👋`, 'Aap successfully login ho gaye. Dashboard open ho raha hai...');
+    setTimeout(() => window.location.href = 'dashboard.html', 1800);
+  } catch(e) { showErr('login-err', getMsg(e.code)); }
+  busy('btn-login', false, '🚀 Login Karein');
+};
+
+/* ── GOOGLE ── */
+window.doGoogle = async function() {
+  try {
+    const cred = await signInWithPopup(auth, gProvider);
+    const user = cred.user;
+    const ref  = doc(db, 'students', user.uid);
+    const snap = await getDoc(ref);
+    if (!snap.exists()) {
+      await setDoc(ref, {
+        name: user.displayName, email: user.email,
+        phone: '', branch: '', semester: '',
+        createdAt: new Date().toISOString()
+      });
+    }
+    const name = user.displayName.split(' ')[0];
+    showSuccess(`Welcome, ${name}! 🎉`, 'Google se login ho gaya. Dashboard open ho raha hai...');
+    setTimeout(() => window.location.href = 'dashboard.html', 1800);
+  } catch(e) {
+    if (e.code !== 'auth/popup-closed-by-user')
+      showErr('login-err', getMsg(e.code));
+  }
+};
+
+/* ── REGISTER ── */
+window.doRegister = async function() {
+  const fname  = document.getElementById('r-fname').value.trim();
+  const lname  = document.getElementById('r-lname').value.trim();
+  const email  = document.getElementById('r-email').value.trim();
+  const phone  = document.getElementById('r-phone').value.trim();
+  const branch = document.getElementById('r-branch').value;
+  const sem    = document.getElementById('r-sem').value;
+  const pass   = document.getElementById('r-pass').value;
+
+  if (!fname)   { showErr('reg-err','⚠️ Pehla naam bharo!'); return; }
+  if (!email)   { showErr('reg-err','⚠️ Email bharo!'); return; }
+  if (!phone || phone.length !== 10) { showErr('reg-err','⚠️ 10-digit phone number bharo!'); return; }
+  if (!branch)  { showErr('reg-err','⚠️ Apni branch chunein!'); return; }
+  if (!sem)     { showErr('reg-err','⚠️ Semester chunein!'); return; }
+  if (pass.length < 8) { showErr('reg-err','⚠️ Password kam se kam 8 characters ka hona chahiye!'); return; }
+
+  busy('btn-reg', true, '✅ Account Banayein');
+  try {
+    const cred = await createUserWithEmailAndPassword(auth, email, pass);
+    await updateProfile(cred.user, { displayName: fname + (lname ? ' '+lname : '') });
+    await setDoc(doc(db, 'students', cred.user.uid), {
+      name:      fname + (lname ? ' '+lname : ''),
+      email, phone, branch,
+      semester:  sem,
+      createdAt: new Date().toISOString()
+    });
+    showSuccess(`Welcome, ${fname}! 🎓`, 'Account ban gaya! Ab aap sab study materials access kar sakte ho.');
+    setTimeout(() => window.location.href = 'dashboard.html', 2000);
+  } catch(e) { showErr('reg-err', getMsg(e.code)); }
+  busy('btn-reg', false, '✅ Account Banayein');
+};
+
+/* ── FORGOT PASSWORD ── */
+window.doForgot = async function() {
+  const email = document.getElementById('l-email').value.trim();
+  if (!email) { showErr('login-err','⚠️ Pehle email field mein apna email dalo, phir click karein.'); return; }
+  try {
+    await sendPasswordResetEmail(auth, email);
+    showErr('login-err','');
+    document.getElementById('login-err').style.display = 'block';
+    document.getElementById('login-err').style.background = 'rgba(16,185,129,0.12)';
+    document.getElementById('login-err').style.borderColor = 'rgba(16,185,129,0.3)';
+    document.getElementById('login-err').style.color = '#6ee7b7';
+    document.getElementById('login-err').textContent = '✅ Reset email bhej diya! Inbox check karein.';
+  } catch(e) { showErr('login-err', getMsg(e.code)); }
+};
+</script>
+
+<!-- PASSWORD STRENGTH (non-module) -->
+<script>
+function checkStrength(val) {
+  const bar  = document.getElementById('pass-bar');
+  const hint = document.getElementById('pass-hint');
+  let score = 0;
+  if (val.length >= 8)  score++;
+  if (val.length >= 12) score++;
+  if (/[A-Z]/.test(val)) score++;
+  if (/[0-9]/.test(val)) score++;
+  if (/[^A-Za-z0-9]/.test(val)) score++;
+  const levels = [
+    { w:'0%',   color:'transparent', text:'' },
+    { w:'25%',  color:'#ef4444',     text:'Bahut weak 😟' },
+    { w:'50%',  color:'#f59e0b',     text:'Theek hai 😐' },
+    { w:'75%',  color:'#3b82f6',     text:'Achha hai 👍' },
+    { w:'100%', color:'#10b981',     text:'Bahut strong 💪' },
+  ];
+  const l = levels[Math.min(score, 4)];
+  bar.style.width  = l.w;
+  bar.style.background = l.color;
+  hint.textContent = l.text;
+  hint.style.color = l.color;
+}
+
+/* Enter key support */
+document.addEventListener('keydown', e => {
+  if (e.key === 'Enter') {
+    const loginActive = document.getElementById('panel-login').classList.contains('active');
+    if (loginActive) window.doLogin && doLogin();
+    else window.doRegister && doRegister();
+  }
+});
+</script>
+</body>
+</html>
